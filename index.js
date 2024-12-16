@@ -81,7 +81,7 @@ var SeleniumGridInstance = function (name, args, logger, baseLauncherDecorator,
   Object.keys(defaultFirefoxPrefs).forEach((pref) => {
     options[wd.Browser.FIREFOX].setPreference(pref, defaultFirefoxPrefs[pref]);
   });
-  options[wd.Browser.CHROME].addArguments(defaultChromeArgs);
+  options[wd.Browser.CHROME].addArguments(...defaultChromeArgs);
 
   Object.keys(args).forEach(function (key) {
     if (ignoreArgs.indexOf(key) !== -1) {
@@ -110,7 +110,7 @@ var SeleniumGridInstance = function (name, args, logger, baseLauncherDecorator,
       if (!options[args.browserName].addArguments) {
         throw new Error('arguments not supported for ' + args.browserName);
       }
-      options[args.browserName].addArguments(args[key]);
+      options[args.browserName].addArguments(...args[key]);
       return;
     }
 
@@ -121,7 +121,7 @@ var SeleniumGridInstance = function (name, args, logger, baseLauncherDecorator,
       if (!options[args.browserName].addExtensions) {
         throw new Error('extensions not supported for ' + args.browserName);
       }
-      options[args.browserName].addArguments(args[key]);
+      options[args.browserName].addExtensions(...args[key]);
       return;
     }
 
